@@ -5,21 +5,23 @@ This application could be very huge hence I am depicting only for very small par
 
 This demo consists of 5 main micro serviecs developed using spring boot: 
 
-	-	CART-SERVICE  ( this microservice talks to other microservie to complete its functionality) 
+	-	CART-SERVICE (port: 9001)  ( this microservice talks to other microservie to complete its functionality)  
 	
-	-	LOCATION-SERVICE
+	-	LOCATION-SERVICE (port: 9002)
 	
-	-	ORDER-SERVICE
+	-	ORDER-SERVICE (port: 9003)
 	
-	-	PAYMENT-SERVICE
+	-	PAYMENT-SERVICE (port: 9004)
 	
-	-	USER-SERVICE
+	-	USER-SERVICE (port: 9004)
 	
 Apart from these applications there are 2 more applications
 	
-	-	Service-Discovery (for registring and discovering services) 
+	-	Service-Discovery (for registring and discovering services)  Port: 
 	
-	-	API-Gateway (acts as API gateway by mapping URLS to serice-regisrty ) 
+	-	API-Gateway (acts as facade/gateway by forwarding to requests to correct applications ) Port: 9100
+	
+	-	Hystrix dashboard port:9200
 	
 # Steps to run the applications: 
 	
@@ -31,11 +33,11 @@ Apart from these applications there are 2 more applications
 	
 	-	run all other applications
 	
-	-	open http://localhost:8761/ - here you should see all the microservices registered
+	-	open http://localhost:8761/ - here you should see all the microservices registered along with API-GATEWAY 
 	
 	-	Now open Postman or any other client 
 	
-	-	Call the post endpoint from postman:  http://localhost:9001/cart/checkout/ with following data: 
+	-	Call the post endpoint from postman:  http://localhost:9100/cart/checkout/ with following data: 
 			{
 				"userId":2,
 				"paymentCardInfo": {
@@ -47,6 +49,7 @@ Apart from these applications there are 2 more applications
 				"itemsList": [{"itemId":1234 , "itemAmount": 40},{"itemId":2354 , "itemAmount": 60}],
 				"locationId": 3
 			}
+			( Note: URL which we mention here has port 9100, when out cart application is running on 9001, this is because API gateway will map this request and forward it to cart microservice)  
 
 	-	This should call other microservices based on service-registry and give the results. 
 	
@@ -54,6 +57,13 @@ Apart from these applications there are 2 more applications
 	
 	-	You can also query using other rest endpoints from other application using rest endpoint to test the application
 	
+#	For running hystrix-dashboard 
+
+	- go to http://localhost:9200/hystrix 
+	
+	- give URL in the input box as http://localhost:9100/actuator/hystrix.stream
+	
+	- Click on monitor stream
 
 #	Things not covered in this application
 
@@ -68,6 +78,10 @@ Apart from these applications there are 2 more applications
 	-	Other microservice in the chain 
 	
 	-	Other technologies like queues, caches, reports, reconcilation engine and other offline jobs 
+	
+	-	tracing of the requests
+	
+	-	mentaining app configs externally
 	
 	
 	
