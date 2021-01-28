@@ -3,6 +3,11 @@
 These is Demo application for demonstrating microservices. In this case I have created application about cart management of an online store.
 This application could be very huge hence I am depicting only for very small part of the application 
 
+# Architecture
+Architecture of online stores can be lot complicated. I have tried to draw it as much as possible, but still tere are many areas which in themselves can be further architected
+This is the simple architectural drawing of the system. 
+Link : 
+
 This demo consists of 5 main micro serviecs developed using spring boot: 
 
 	-	CART-SERVICE (port: 9001)  ( this microservice talks to other microservie to complete its functionality)  
